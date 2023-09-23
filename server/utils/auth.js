@@ -43,4 +43,44 @@ const jwtSign = async (userId) => {
   }
 };
 
-module.exports = { encryptPassword, verifyPassword, jwtSign };
+const jwtVerifyRefreshToken = (token) => {
+  try {
+    const decoded = jwt.decode(token, REFRESH_TOKEN_SECRET);
+    return decoded;
+  } catch (error) {
+    console.error("Error in jwtVerifyRefreshToken: ", error);
+    return error;
+  }
+};
+
+const jwtVerifyAccessToken = async (token) => {
+  try {
+    const decoded = jwt.decode(token, ACCESS_TOKEN_SECRET) / 1000;
+    return decoded;
+  } catch (error) {
+    console.error("Error in jwtVerifyAccessToken: ", error);
+    return error;
+  }
+};
+
+const jwtCheckExpiry = (decodedToken) => {
+  try {
+    console.log("Time now: ", Date.now(), "exp: ", decodedToken.exp * 1000);
+    if (Date.now() >= decodedToken.exp * 1000) {
+      // Expired
+      return true;
+    } else {
+      // Still Valid
+      return false;
+    }
+  } catch (error) {}
+};
+
+module.exports = {
+  encryptPassword,
+  verifyPassword,
+  jwtSign,
+  jwtVerifyAccessToken,
+  jwtVerifyRefreshToken,
+  jwtCheckExpiry,
+};
