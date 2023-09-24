@@ -2,7 +2,7 @@ const { validateKeys } = require("../utils/mongoose");
 const {
   validationAddLevelKeys,
   validationCreateKeys,
-} = require("../Keys/language");
+} = require("../keys/language");
 const Language = require("../models/Language");
 
 const addLanguage = async (req, res) => {

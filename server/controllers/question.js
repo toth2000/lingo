@@ -1,5 +1,5 @@
 const { validateKeys } = require("../utils/mongoose");
-const { validationKeys } = require("../Keys/question");
+const { validationKeys } = require("../keys/question");
 const Question = require("../models/Question");
 
 const insertQuestion = async (req, res) => {
