@@ -16,7 +16,7 @@ const { validateKeys } = require("../utils/mongoose");
 const registerUser = async (req, res) => {
   try {
     if (!validateKeys(validationRegisterUserKeys, req.body)) {
-      return res.json({
+      return res.status(400).json({
         message: "Please fill all the required fields",
         error: "Required Fields not passed",
       });
@@ -29,14 +29,14 @@ const registerUser = async (req, res) => {
     const result = await user.save();
 
     const signUser = await jwtSign(result._id);
-    res.json(signUser);
+    res.status(201).json(signUser);
   } catch (error) {
     console.error("Error Occured in register user controller: ", error);
 
     if (error?.code === 11000) {
-      res.json({ message: "User Already Exists", error: error });
+      res.status(500).json({ message: "User Already Exists", error: error });
     } else {
-      res.json({
+      res.status(500).json({
         message: "An error Occured, Please Try again Later.",
         error: error,
       });
@@ -47,7 +47,7 @@ const registerUser = async (req, res) => {
 const login = async (req, res) => {
   try {
     if (!validateKeys(validationLoginKeys, req.body)) {
-      return res.json({
+      return res.status(400).json({
         message: "Please fill all the required fields",
         error: "Required Fields not passed",
       });
@@ -58,7 +58,7 @@ const login = async (req, res) => {
     const user = await User.findOne({ email: email });
 
     if (!user) {
-      return res.json({
+      return res.status(404).json({
         message: "User does not exists",
         error: "Invalid email",
       });
@@ -67,17 +67,17 @@ const login = async (req, res) => {
     const passwordVerified = await verifyPassword(password, user.password);
 
     if (!passwordVerified) {
-      return res.json({
+      return res.status(401).json({
         message: "Incorrect Password",
         error: "Invalid Password",
       });
     }
 
     const signedUser = await jwtSign(user._id);
-    return res.json(signedUser);
+    return res.status(200).json(signedUser);
   } catch (error) {
     console.error("Error in login controller: ", error);
-    return res.json({
+    return res.status(500).json({
       message: "An error occured, Please try again later.",
       error,
     });
@@ -87,7 +87,7 @@ const login = async (req, res) => {
 const refreshToken = async (req, res) => {
   try {
     if (!validateKeys(validationRefreshTokenKeys, req.body)) {
-      return res.json({
+      return res.status(400).json({
         message: "An error occured, Please Try again later",
         error: "Required Fields not passed",
       });
@@ -98,7 +98,7 @@ const refreshToken = async (req, res) => {
     const decodedData = await jwtVerifyRefreshToken(refreshToken);
 
     if (jwtCheckExpiry(decodedData) === false) {
-      return res.json({
+      return res.status(401).json({
         message: "Token is valid",
         error: "Refresh only expired tokens",
       });
@@ -107,14 +107,14 @@ const refreshToken = async (req, res) => {
     const user = await User.findById(decodedData.userId);
 
     if (!user) {
-      return res.json({
+      return res.status(404).json({
         message: "User does not exists",
         error: "Invalid token",
       });
     }
 
     if (user.refreshToken !== refreshToken) {
-      return res.json({
+      return res.status(401).json({
         message: "Invalid Token",
         error: "Invalid token",
       });
@@ -122,11 +122,11 @@ const refreshToken = async (req, res) => {
 
     const updatedUser = await jwtSign(user._id);
 
-    return res.json(updatedUser);
+    return res.status(200).json(updatedUser);
   } catch (error) {
     console.error("Error in Refresh Token Handler: ", error);
 
-    return res.json({
+    return res.status(500).json({
       message: "An error occured, please try again later.",
       error: error,
     });
