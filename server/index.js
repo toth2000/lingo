@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
+const questionRoute = require("./routes/question");
 
 const app = express();
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(express.json());
 // Route Middleware
 app.use("/user", userRoute);
 app.use("/auth", authRoute);
+app.use("/question", questionRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
