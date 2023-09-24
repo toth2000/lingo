@@ -1,3 +1,8 @@
+const {
+  validationRegisterUserKeys,
+  validationLoginKeys,
+  validationRefreshTokenKeys,
+} = require("../keys/auth");
 const User = require("../models/User");
 const {
   encryptPassword,
@@ -6,17 +11,18 @@ const {
   jwtVerifyRefreshToken,
   jwtCheckExpiry,
 } = require("../utils/auth");
+const { validateKeys } = require("../utils/mongoose");
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-
-    if (!name || !email || !password) {
+    if (!validateKeys(validationRegisterUserKeys, req.body)) {
       return res.json({
         message: "Please fill all the required fields",
         error: "Required Fields not passed",
       });
     }
+
+    const { name, email, password } = req.body;
 
     const hashPassword = await encryptPassword(password);
     const user = new User({ name: name, email: email, password: hashPassword });
@@ -40,14 +46,14 @@ const registerUser = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
-    if (!email || !password) {
+    if (!validateKeys(validationLoginKeys, req.body)) {
       return res.json({
         message: "Please fill all the required fields",
         error: "Required Fields not passed",
       });
     }
+
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email: email });
 
@@ -80,14 +86,14 @@ const login = async (req, res) => {
 
 const refreshToken = async (req, res) => {
   try {
-    const { refreshToken } = req.body;
-
-    if (!refreshToken) {
+    if (!validateKeys(validationRefreshTokenKeys, req.body)) {
       return res.json({
         message: "An error occured, Please Try again later",
         error: "Required Fields not passed",
       });
     }
+
+    const { refreshToken } = req.body;
 
     const decodedData = await jwtVerifyRefreshToken(refreshToken);
 
