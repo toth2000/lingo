@@ -6,7 +6,7 @@ const insertQuestion = async (req, res) => {
   try {
     const data = req.body;
     if (!validateKeys(validationKeys, data)) {
-      return res.json({
+      return res.status(400).json({
         message: "Please fill all the required fields",
         error: "Required field not provided",
       });
@@ -15,10 +15,10 @@ const insertQuestion = async (req, res) => {
     const question = new Question(data);
     const result = await question.save();
 
-    return res.json(result);
+    return res.status(201).json(result);
   } catch (error) {
     console.error("Error in insert question controller: ", error);
-    return res.json({
+    return res.status(500).json({
       message: "An error occured, please try again later.",
       error: error,
     });
@@ -30,7 +30,7 @@ const insertManyQuestion = async (req, res) => {
     const data = req.body;
 
     if (!Array.isArray(data)) {
-      return res.json({
+      return res.status(400).json({
         message: "Please provide an array of question",
         error: "Array of JSON is required",
       });
@@ -41,17 +41,17 @@ const insertManyQuestion = async (req, res) => {
     );
 
     if (!validateFields) {
-      return res.json({
+      return res.status(400).json({
         message: "Please pass data in correct format",
         error: "JSON Validation Fail",
       });
     }
 
     const result = await Question.insertMany(data);
-    return res.json(result);
+    return res.status(201).json(result);
   } catch (error) {
     console.error("Error in insert many question controller: ", error);
-    return res.json({
+    return res.status(500).json({
       message: "An error occured, please try again later.",
       error: error,
     });
