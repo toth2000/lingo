@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const questionRoute = require("./routes/question");
+const languageRoute = require("./routes/language");
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use("/user", userRoute);
 app.use("/auth", authRoute);
 app.use("/question", questionRoute);
+app.use("/language", languageRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -30,7 +32,7 @@ mongoose
   .connect(MONGOOSE_URL)
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`Example app listening on port ${PORT}`);
+      console.log(`The Lingo app server is listening on port ${PORT}`);
     });
   })
   .catch((error) =>
