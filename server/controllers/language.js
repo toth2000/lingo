@@ -10,7 +10,7 @@ const addLanguage = async (req, res) => {
     const data = req.body;
 
     if (!validateKeys(validationCreateKeys, data)) {
-      return res.json({
+      return res.status(400).json({
         message: "Please fill all the required fields",
         error: "Required field not provided",
       });
@@ -19,13 +19,13 @@ const addLanguage = async (req, res) => {
     const language = new Language(data);
     const result = await language.save();
 
-    return res.json(result);
+    return res.status(201).json(result);
   } catch (error) {
     console.error("Error in create language controller: ", error);
     if (error?.code === 11000) {
-      res.json({ message: "Language Already Exists", error: error });
+      res.status(405).json({ message: "Language Already Exists", error: error });
     } else {
-      res.json({
+      res.status(500).json({
         message: "An error Occured, Please Try again Later.",
         error: error,
       });
@@ -39,7 +39,7 @@ const addLevel = async (req, res) => {
     const data = req.body;
 
     if (!validateKeys(validationAddLevelKeys, data)) {
-      return res.json({
+      return res.status(400).json({
         message: "Please select langauge first",
         error: "Language code not provided",
       });
@@ -52,16 +52,16 @@ const addLevel = async (req, res) => {
     );
 
     if (result === null) {
-      res.json({
+      res.status(404).json({
         message: "Language Does not exists",
         error: "Invalid Langauge code",
       });
     }
 
-    res.json(result);
+    res.status(200).json(result);
   } catch (error) {
     console.error("Error in add level controller: ", error);
-    res.json({
+    res.status(500).json({
       message: "An error occured, please try again later",
       error: error,
     });
