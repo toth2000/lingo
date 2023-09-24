@@ -1,6 +1,6 @@
 const validationRegisterUserKeys = ["name", "email", "password"];
 
-const validationLoginKeys = ["name", "email", "password"];
+const validationLoginKeys = ["email", "password"];
 
 const validationRefreshTokenKeys = ["refreshToken"];
 
