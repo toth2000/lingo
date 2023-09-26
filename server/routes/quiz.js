@@ -1,4 +1,8 @@
-const { connectionHandler, messageHandler } = require("../controllers/quiz");
+const {
+  connectionHandler,
+  messageHandler,
+  closeHandler,
+} = require("../controllers/quiz");
 
 const router = async (ws, req) => {
   connectionHandler(ws, req);
@@ -7,9 +11,7 @@ const router = async (ws, req) => {
     messageHandler(ws, req, msg);
   });
 
-  ws.on("close", () => {
-    console.log("WebSocket was closed");
-  });
+  ws.on("close", closeHandler);
 };
 
 module.exports = router;
