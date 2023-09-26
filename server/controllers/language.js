@@ -23,7 +23,9 @@ const addLanguage = async (req, res) => {
   } catch (error) {
     console.error("Error in create language controller: ", error);
     if (error?.code === 11000) {
-      res.status(405).json({ message: "Language Already Exists", error: error });
+      res
+        .status(405)
+        .json({ message: "Language Already Exists", error: error });
     } else {
       res.status(500).json({
         message: "An error Occured, Please Try again Later.",
@@ -35,7 +37,6 @@ const addLanguage = async (req, res) => {
 
 const addLevel = async (req, res) => {
   try {
-    // findOneAndUpdate({ _id: res._id }, { $inc: { views: 1 } }, {new: true }
     const data = req.body;
 
     if (!validateKeys(validationAddLevelKeys, data)) {
