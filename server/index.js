@@ -12,6 +12,7 @@ const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const questionRoute = require("./routes/question");
 const languageRoute = require("./routes/language");
+const leaderboardRoute = require("./routes/leaderboard");
 const quizRoute = require("./routes/quiz");
 
 const app = express();
@@ -35,10 +36,7 @@ app.use("/user", userRoute);
 app.use("/auth", authRoute);
 app.use("/question", questionRoute);
 app.use("/language", languageRoute);
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/leaderboard", leaderboardRoute);
 
 mongoose
   .connect(MONGOOSE_URL)
