@@ -14,6 +14,7 @@ const {
   pickQuestion,
   calculateScore,
   calculateBonusScore,
+  updateUserStatistics,
 } = require("../utils/quiz");
 const { sessionExpired } = require("../utils/session");
 
@@ -123,8 +124,11 @@ const messageHandler = async (ws, req, message) => {
     //   Retrieving session data
     const session = JSON.parse(req.session.score);
 
+    const { level, lang } = req.query;
+
     //   Checking if Quiz time is over
     if (sessionExpired(req.session.cookie)) {
+      await updateUserStatistics(session.userId, level, lang, session.score);
       ws.send(
         JSON.stringify({
           type: "end",
@@ -179,6 +183,12 @@ const messageHandler = async (ws, req, message) => {
     if (session.questionCount === QUIZ_CONFIG.total_question) {
       const bonus = calculateBonusScore(req.session.cookie.expires);
 
+      await updateUserStatistics(
+        session.userId,
+        level,
+        lang,
+        updatedScore + bonus
+      );
       ws.send(
         JSON.stringify({
           type: "end",
@@ -204,6 +214,13 @@ const messageHandler = async (ws, req, message) => {
     //   All question answered
     if (currentQuestion === null) {
       const bonus = calculateBonusScore(req.session.cookie.expires);
+
+      await updateUserStatistics(
+        session.userId,
+        level,
+        lang,
+        updatedScore + bonus
+      );
 
       ws.send(
         JSON.stringify({
