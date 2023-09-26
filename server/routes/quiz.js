@@ -2,6 +2,7 @@ const {
   connectionHandler,
   messageHandler,
   closeHandler,
+  errorHandler,
 } = require("../controllers/quiz");
 
 const router = async (ws, req) => {
@@ -12,6 +13,8 @@ const router = async (ws, req) => {
   });
 
   ws.on("close", closeHandler);
+
+  ws.on("error", errorHandler);
 };
 
 module.exports = router;

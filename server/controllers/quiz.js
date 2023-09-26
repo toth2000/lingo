@@ -258,7 +258,16 @@ const closeHandler = async (ws, req) => {
   await req.session.destroy();
 };
 
-const errorHandler = (ws, req) => {};
+const errorHandler = (ws, req) => {
+  console.error("Error in Websocket: ", error);
+  ws.send(
+    JSON.stringify({
+      type: "error",
+      message: "An error occured, please try again later",
+      error: error,
+    })
+  );
+};
 module.exports = {
   connectionHandler,
   messageHandler,
