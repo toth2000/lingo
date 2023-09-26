@@ -6,9 +6,11 @@ const schema = new mongoose.Schema(
     level: {
       type: Object,
       default: {
-        0: {
-          complete: false,
-          score: 0,
+        en: {
+          0: {
+            complete: false,
+            score: 0,
+          },
         },
       },
     }, //Level Progress
