@@ -1,8 +1,10 @@
+const { default: mongoose } = require("mongoose");
 const {
   validationRegisterUserKeys,
   validationLoginKeys,
   validationRefreshTokenKeys,
 } = require("../keys/auth");
+const Statistic = require("../models/Statistic");
 const User = require("../models/User");
 const {
   encryptPassword,
@@ -29,6 +31,9 @@ const registerUser = async (req, res) => {
     const result = await user.save();
 
     const signUser = await jwtSign(result._id);
+    await new Statistic({
+      _id: new mongoose.Types.ObjectId(result._id),
+    }).save();
     res.status(201).json(signUser);
   } catch (error) {
     console.error("Error Occured in register user controller: ", error);
