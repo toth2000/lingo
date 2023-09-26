@@ -24,6 +24,7 @@ const sessionSettings = {
     sameSite: "none",
   },
   store: sessionStore,
+  unset: "destroy", // remove session when destroyed manually
   resave: false, // Force save to DB if session not modified when true
   saveUninitialized: false, // Save unintializied session to DB when true
 };
