@@ -34,7 +34,7 @@ const connectionHandler = async (ws, req) => {
   }
 
   // Checking Access Token Validity
-  const decodedToken = await jwtVerifyAccessToken(accessToken);
+  const decodedToken = jwtVerifyAccessToken(accessToken);
   const tokenExpired = jwtCheckExpiry(decodedToken);
   if (tokenExpired === true) {
     ws.send(

@@ -53,7 +53,7 @@ const jwtVerifyRefreshToken = (token) => {
   }
 };
 
-const jwtVerifyAccessToken = async (token) => {
+const jwtVerifyAccessToken = (token) => {
   try {
     const decoded = jwt.decode(token, ACCESS_TOKEN_SECRET);
     return decoded;
@@ -65,7 +65,6 @@ const jwtVerifyAccessToken = async (token) => {
 
 const jwtCheckExpiry = (decodedToken) => {
   try {
-    console.log("Time now: ", Date.now(), "exp: ", decodedToken.exp * 1000);
     if (Date.now() >= decodedToken.exp * 1000) {
       // Expired
       return true;
