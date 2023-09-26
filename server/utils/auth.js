@@ -55,7 +55,7 @@ const jwtVerifyRefreshToken = (token) => {
 
 const jwtVerifyAccessToken = async (token) => {
   try {
-    const decoded = jwt.decode(token, ACCESS_TOKEN_SECRET) / 1000;
+    const decoded = jwt.decode(token, ACCESS_TOKEN_SECRET);
     return decoded;
   } catch (error) {
     console.error("Error in jwtVerifyAccessToken: ", error);
@@ -76,6 +76,17 @@ const jwtCheckExpiry = (decodedToken) => {
   } catch (error) {}
 };
 
+const getHeaderToken = (req) => {
+  try {
+    const { token } = req.headers;
+    const acessToken = token.split(" ")[1];
+    return acessToken;
+  } catch (error) {
+    console.error("Header not provided", error);
+    return null;
+  }
+};
+
 module.exports = {
   encryptPassword,
   verifyPassword,
@@ -83,4 +94,5 @@ module.exports = {
   jwtVerifyAccessToken,
   jwtVerifyRefreshToken,
   jwtCheckExpiry,
+  getHeaderToken,
 };

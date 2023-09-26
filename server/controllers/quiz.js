@@ -4,6 +4,11 @@ const {
 } = require("../Keys/quiz");
 const { QUIZ_CONFIG } = require("../config/quiz");
 const Question = require("../models/Question");
+const {
+  getHeaderToken,
+  jwtCheckExpiry,
+  jwtVerifyAccessToken,
+} = require("../utils/auth");
 const { validateKeys } = require("../utils/mongoose");
 const {
   pickQuestion,
@@ -13,12 +18,29 @@ const {
 const { sessionExpired } = require("../utils/session");
 
 const connectionHandler = async (ws, req) => {
-  if (!validateKeys(validationConnectKeys, req.query)) {
+  const accessToken = getHeaderToken(req);
+
+  if (!validateKeys(validationConnectKeys, req.query) || accessToken === null) {
     ws.send(
       JSON.stringify({
         type: "error",
         message: "Required missing",
-        error: "query parameters required",
+        error: "query parameters and access token are required",
+      })
+    );
+    ws.close();
+    return;
+  }
+
+  // Checking Access Token Validity
+  const decodedToken = await jwtVerifyAccessToken(accessToken);
+  const tokenExpired = jwtCheckExpiry(decodedToken);
+  if (tokenExpired === true) {
+    ws.send(
+      JSON.stringify({
+        type: "error",
+        message: "Session Expired, Please login again to continue",
+        error: "Access Token Expired",
       })
     );
     ws.close();
@@ -66,6 +88,7 @@ const connectionHandler = async (ws, req) => {
   const currentQuestion = medium.pop();
 
   sessionData = {
+    userId: decodedToken.userId,
     level: level,
     questionCount: 1,
     currentQuestion: {
@@ -110,7 +133,7 @@ const messageHandler = async (ws, req, message) => {
           bonus: 0,
         })
       );
-      req.session.destroy();
+      await req.session.destroy();
       ws.close();
       return;
     }
@@ -164,6 +187,7 @@ const messageHandler = async (ws, req, message) => {
           bonus: bonus,
         })
       );
+      await req.session.destroy();
       ws.close();
       return;
     }
@@ -189,7 +213,9 @@ const messageHandler = async (ws, req, message) => {
           bonus: bonus,
         })
       );
+      await req.session.destroy();
       ws.close();
+      return;
     }
 
     //   Update session data
@@ -227,7 +253,10 @@ const messageHandler = async (ws, req, message) => {
   }
 };
 
-const closeHandler = (ws, req) => {};
+const closeHandler = async (ws, req) => {
+  console.log("WebSocket was closed");
+  await req.session.destroy();
+};
 
 const errorHandler = (ws, req) => {};
 module.exports = {
