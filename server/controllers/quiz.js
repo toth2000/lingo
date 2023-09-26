@@ -1,7 +1,7 @@
 const {
   validationConnectKeys,
   validationMessageKeys,
-} = require("../Keys/quiz");
+} = require("../keys/quiz");
 const { QUIZ_CONFIG } = require("../config/quiz");
 const Question = require("../models/Question");
 const {
