@@ -5,7 +5,11 @@ const {
 const { QUIZ_CONFIG } = require("../config/quiz");
 const Question = require("../models/Question");
 const { validateKeys } = require("../utils/mongoose");
-const { pickQuestion, calculateScore } = require("../utils/quiz");
+const {
+  pickQuestion,
+  calculateScore,
+  calculateBonusScore,
+} = require("../utils/quiz");
 const { sessionExpired } = require("../utils/session");
 
 const connectionHandler = async (ws, req) => {
@@ -82,6 +86,7 @@ const connectionHandler = async (ws, req) => {
 
   ws.send(
     JSON.stringify({
+      type: "ques",
       id: currentQuestion.id,
       ques: currentQuestion.ques,
       opt: currentQuestion.opt,
@@ -91,27 +96,28 @@ const connectionHandler = async (ws, req) => {
 };
 
 const messageHandler = async (ws, req, message) => {
-  //   Retrieving session data
-  const session = JSON.parse(req.session.score);
-
-  //   Checking if Quiz time is over
-  if (sessionExpired(req.session.cookie)) {
-    ws.send(
-      JSON.stringify({
-        type: "end",
-        message: "Time over",
-        score: session.score,
-      })
-    );
-    req.session.destroy();
-    ws.close();
-    return;
-  }
-
-  //   Parsing user message
-  const data = JSON.parse(message);
-
   try {
+    //   Retrieving session data
+    const session = JSON.parse(req.session.score);
+
+    //   Checking if Quiz time is over
+    if (sessionExpired(req.session.cookie)) {
+      ws.send(
+        JSON.stringify({
+          type: "end",
+          message: "Time over",
+          score: session.score,
+          bonus: 0,
+        })
+      );
+      req.session.destroy();
+      ws.close();
+      return;
+    }
+
+    //   Parsing user message
+    const data = JSON.parse(message);
+
     //   Data Validation
     if (!validateKeys(validationMessageKeys, data)) {
       ws.send(
@@ -148,11 +154,14 @@ const messageHandler = async (ws, req, message) => {
 
     //   Checking if total required question is attempted
     if (session.questionCount === QUIZ_CONFIG.total_question) {
+      const bonus = calculateBonusScore(req.session.cookie.expires);
+
       ws.send(
         JSON.stringify({
           type: "end",
           message: "Quiz Complete",
           score: updatedScore,
+          bonus: bonus,
         })
       );
       ws.close();
@@ -170,11 +179,14 @@ const messageHandler = async (ws, req, message) => {
 
     //   All question answered
     if (currentQuestion === null) {
+      const bonus = calculateBonusScore(req.session.cookie.expires);
+
       ws.send(
         JSON.stringify({
           type: "end",
           message: "All questions attempted",
           score: updatedScore,
+          bonus: bonus,
         })
       );
       ws.close();

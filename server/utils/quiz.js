@@ -64,4 +64,14 @@ const calculateScore = (currentScore, currentQuestion, response) => {
   return score;
 };
 
-module.exports = { pickQuestion, calculateScore };
+const calculateBonusScore = (quizEndTime) => {
+  const currentTime = new Date().getTime();
+  const endTime = new Date(quizEndTime).getTime();
+  const diff = Math.abs(currentTime - endTime);
+
+  const bonus = Math.floor(diff / 60000) * QUIZ_CONFIG.bonus_marks;
+
+  return bonus;
+};
+
+module.exports = { pickQuestion, calculateScore, calculateBonusScore };
