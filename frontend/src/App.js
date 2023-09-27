@@ -4,6 +4,7 @@ import Theme from "./Theme";
 import Navbar from "./components/Navbar";
 import QuizPage from "./pages/QuizPage/index.js";
 import { Container, LowerWrapper, UpperWrapper } from "./style";
+import PathPage from "./pages/PathPage";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <LowerWrapper>
             <Routes>
               <Route path="/quiz" element={<QuizPage />} />
-              <Route path="/path" element={<QuizPage />} />
+              <Route path="/path" element={<PathPage />} />
             </Routes>
           </LowerWrapper>
         </Container>
