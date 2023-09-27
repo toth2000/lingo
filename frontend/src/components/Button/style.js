@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Btn = styled.button`
-  margin-top: 25px;
   cursor: pointer;
   padding: ${({ padding }) => padding};
   width: ${({ width }) => width};
