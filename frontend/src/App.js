@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Theme from "./Theme";
 import Navbar from "./components/Navbar";
-import QuizPage from "./pages/QuizPage";
+import QuizPage from "./pages/QuizPage/index.js";
 import { Container, LowerWrapper, UpperWrapper } from "./style";
 
 function App() {
