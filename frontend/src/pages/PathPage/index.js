@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   AlignWrapper,
   Container,
+  Hr,
   Icon,
   InnerWrapper,
   InstructionContainer,
@@ -32,6 +33,7 @@ const PathPage = () => {
           <Title>Learning Path</Title>
           <Text>Choose a level from the list to start learning.</Text>
         </InnerWrapper>
+        <Hr />
         <AlignWrapper>
           <SubTitle>Language: </SubTitle>
           <Select>
@@ -39,6 +41,7 @@ const PathPage = () => {
             <Option>Hindi</Option>
           </Select>
         </AlignWrapper>
+        <Hr />
         <InnerWrapper>
           <AlignWrapper>
             <SubTitle>Instructions: </SubTitle>
@@ -72,6 +75,7 @@ const PathPage = () => {
               calculated based on the remaining minutes left multipled by 2
             </Text>
           </InstructionContainer>
+          <Hr />
         </InnerWrapper>
         <SubTitle>Levels: </SubTitle>
         <InnerWrapper>

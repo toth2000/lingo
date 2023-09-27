@@ -83,3 +83,11 @@ export const Icon = styled.img`
   width: 28px;
   cursor: pointer;
 `;
+
+export const Hr = styled.hr`
+  align: "center";
+  color: ${({ theme: { colors } }) => colors.lingoBrown};
+  size: 1px;
+  width: 100%;
+  margin: 0;
+`;
