@@ -8,7 +8,7 @@ const Theme = ({ children }) => {
       lingoGreen: "#c5d86d",
       lingoLightGrey: "#f7f7f2",
       lingoOrange: "#f05d23",
-      lingoLightGreen: "##E4E6C3",
+      lingoLightGreen: "#E4E6C3",
       lingoBackgroundWhite: "#EFEFEF",
       lingoWhite: "#fff",
       lingoBlack: "#000",
