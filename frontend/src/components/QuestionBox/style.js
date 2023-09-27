@@ -15,10 +15,12 @@ export const Container = styled.div`
   @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.mobile}) {
     width: 90%;
+    flex-grow: 1;
   }
   @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.tablet}) {
     width: 45%;
+    flex-grow: 0;
   }
   @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.laptop}) {
