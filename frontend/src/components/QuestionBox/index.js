@@ -6,7 +6,7 @@ import {
   QuestionText,
   QuestionTextContainer,
 } from "./style";
-import Choice from "./Choice";
+import Choice from "../Choice";
 import Button from "../Button";
 
 const QuestionBox = () => {
