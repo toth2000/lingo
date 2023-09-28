@@ -15,10 +15,57 @@ import {
 import email_icon from "../../icons/email.png";
 import password_icon from "../../icons/password.png";
 import user_icon from "../../icons/user.png";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useInput } from "../../hooks/useInput";
+import { login, register } from "../../api/auth";
+import { showErrorAlert } from "../../utils/api";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../context/AppContext";
+import { LEARNING_PATH_ROUTE } from "../../constant/routes";
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(true);
+
+  const navigate = useNavigate();
+  const { setAuthData, isUserAuthenticated } = useContext(AuthContext);
+  const { setLoading } = useContext(AppContext);
+  const { state, handleInput, validateInputFields } = useInput({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleAuthentication = async () => {
+    const apiCall = showLogin ? login : register;
+
+    const isInputValid = showLogin
+      ? validateInputFields(["email", "password"])
+      : validateInputFields();
+
+    if (isInputValid === false) {
+      alert("All fields are required");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const { data } = await apiCall(state);
+      setAuthData(data._id, data.accessToken, data.refreshToken);
+      navigate(LEARNING_PATH_ROUTE);
+    } catch (error) {
+      console.error("Error in API Call: ", error);
+      showErrorAlert(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isUserAuthenticated()) {
+      navigate(LEARNING_PATH_ROUTE);
+    }
+  }, []);
 
   return (
     <Container>
@@ -95,26 +142,33 @@ const LandingPage = () => {
             <InputField
               icon={user_icon}
               padding={"3%"}
+              name={"name"}
+              value={state.name}
               placeholder={"Full Name"}
               type={"text"}
-              handleInputChange={() => {}}
+              handleInputChange={handleInput}
             />
           ) : null}
           <InputField
             icon={email_icon}
+            name={"email"}
             padding={"3%"}
+            value={state.email}
             placeholder={"Email"}
             type={"text"}
-            handleInputChange={() => {}}
+            handleInputChange={handleInput}
           />
           <InputField
             icon={password_icon}
+            name={"password"}
+            value={state.password}
             padding={"3%"}
             placeholder={"Password"}
             type={"password"}
-            handleInputChange={() => {}}
+            handleInputChange={handleInput}
           />
           <Button
+            onClick={handleAuthentication}
             padding={"4%"}
             text={"Submit"}
             type={"filled"}
