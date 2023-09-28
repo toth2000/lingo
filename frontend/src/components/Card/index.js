@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "./style";
 
-const Card = ({ children, padding, gap, gapSm, widthSm, widthM, widthL }) => {
+const Card = ({ children, padding, gap, gapSm, widthSm, widthM, widthL, flexGrow }) => {
   return (
     <Container
       padding={padding}
@@ -10,6 +10,7 @@ const Card = ({ children, padding, gap, gapSm, widthSm, widthM, widthL }) => {
       widthL={widthL}
       gap={gap}
       gapSm={gapSm}
+      flexGrow={flexGrow}
     >
       {children}
     </Container>

@@ -23,7 +23,7 @@ export const Container = styled.div`
       breakpoints.tablet}) {
     width: ${({ widthM }) => widthM};
     gap: ${({ gap }) => (gap ? gap : "normal")};
-    flex-grow: 0;
+    flex-grow: ${({ flexGrow }) => (flexGrow ? flexGrow : 0)};
     margin: 0;
   }
   @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
