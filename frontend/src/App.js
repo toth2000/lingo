@@ -7,6 +7,7 @@ import { Container, LowerWrapper, UpperWrapper } from "./style";
 import PathPage from "./pages/PathPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
 import UserPage from "./pages/UserPage";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           </UpperWrapper>
           <LowerWrapper>
             <Routes>
+              <Route path="/" element={<LandingPage />} />
               <Route path="/quiz" element={<QuizPage />} />
               <Route path="/path" element={<PathPage />} />
               <Route path="/board" element={<LeaderboardPage />} />
