@@ -42,7 +42,7 @@ export const useAuthContext = () => {
 
   const deleteAuthData = () => {
     clearLocalStorage();
-    setAuthData({ accessToken: "", refreshToken: "" });
+    setAuthData("", "", "");
   };
 
   const isUserAuthenticated = () => {
@@ -56,8 +56,14 @@ export const useAuthContext = () => {
       deleteAuthData();
     }
 
-    return false;
+    return authenticated;
   };
 
-  return { authState, setAuthData, getAuthData, deleteAuthData, isUserAuthenticated };
+  return {
+    authState,
+    setAuthData,
+    getAuthData,
+    deleteAuthData,
+    isUserAuthenticated,
+  };
 };
