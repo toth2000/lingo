@@ -12,9 +12,13 @@ const router = async (ws, req) => {
     messageHandler(ws, req, msg);
   });
 
-  ws.on("close", closeHandler);
+  ws.on("close", () => {
+    closeHandler(ws, req);
+  });
 
-  ws.on("error", errorHandler);
+  ws.on("error", () => {
+    errorHandler(ws, req);
+  });
 };
 
 module.exports = router;

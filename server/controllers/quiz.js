@@ -118,6 +118,22 @@ const connectionHandler = async (ws, req) => {
       score: sessionData.score,
     })
   );
+
+  const timer = setInterval(() => {
+    try {
+      const session = JSON.parse(req.session.score);
+      ws.send(
+        JSON.stringify({
+          type: "end",
+          message: "Time over",
+          score: session.score,
+          bonus: 0,
+        })
+      );
+      ws.close();
+    } catch {}
+  }, QUIZ_CONFIG.quiz_time * 1000);
+  req.timerId = timer;
 };
 
 const messageHandler = async (ws, req, message) => {
@@ -272,8 +288,13 @@ const messageHandler = async (ws, req, message) => {
 };
 
 const closeHandler = async (ws, req) => {
-  console.log("WebSocket was closed");
-  await req.session.destroy();
+  try {
+    console.log("WebSocket was closed");
+    clearInterval(req.timerId);
+    await req.session.destroy();
+  } catch (error) {
+    console.error("Error in close quiz handler", error);
+  }
 };
 
 const errorHandler = (ws, req) => {
