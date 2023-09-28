@@ -13,6 +13,13 @@ import ProgressLoader from "./components/ProgressLoader";
 
 import { AuthContext, useAuthContext } from "./context/AuthContext";
 import { AppContext, useAppContext } from "./context/AppContext";
+import {
+  HOME_ROUTE,
+  LEADERBOARD_ROUTE,
+  LEARNING_PATH_ROUTE,
+  QUIZ_ROUTE,
+  USER_ROUTE,
+} from "./constant/routes";
 
 function App() {
   const authData = useAuthContext();
@@ -28,11 +35,14 @@ function App() {
             <LowerWrapper>
               <BrowserRouter>
                 <Routes>
-                  <Route path="/" element={<LandingPage />} />
-                  <Route path="/quiz" element={<QuizPage />} />
-                  <Route path="/path" element={<PathPage />} />
-                  <Route path="/board" element={<LeaderboardPage />} />
-                  <Route path="/user/:id" element={<UserPage />} />
+                  <Route path={HOME_ROUTE} element={<LandingPage />} />
+                  <Route path={QUIZ_ROUTE} element={<QuizPage />} />
+                  <Route path={LEARNING_PATH_ROUTE} element={<PathPage />} />
+                  <Route
+                    path={LEADERBOARD_ROUTE}
+                    element={<LeaderboardPage />}
+                  />
+                  <Route path={USER_ROUTE} element={<UserPage />} />
                 </Routes>
               </BrowserRouter>
             </LowerWrapper>
