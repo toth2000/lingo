@@ -2,16 +2,16 @@ import React from "react";
 import {
   ButtonContainer,
   ChoiceContainer,
-  Container,
   QuestionText,
   QuestionTextContainer,
 } from "./style";
 import Choice from "../Choice";
 import Button from "../Button";
+import Card from "../Card";
 
 const QuestionBox = () => {
   return (
-    <Container>
+    <Card padding={"2%"} widthSm={"90%"} widthM={"45%"} widthL={"30%"}>
       <QuestionTextContainer>
         <QuestionText>Q.</QuestionText>
         <QuestionText>
@@ -31,7 +31,7 @@ const QuestionBox = () => {
           width={"40%"}
         />
       </ButtonContainer>
-    </Container>
+    </Card>
   );
 };
 

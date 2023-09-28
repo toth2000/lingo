@@ -4,30 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-grow: 1;
-`;
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin-top: 2px;
-  padding: 3%;
-  background-color: ${({ theme: { colors } }) => colors.lingoWhite};
-
-  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.mobile}) {
-    width: 90%;
-  }
-
-  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.tablet}) {
-    width: 60%;
-  }
-
-  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.laptop}) {
-    width: 45%;
-  }
+  margin-top: 2%;
 `;
 
 export const Title = styled.h1`

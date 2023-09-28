@@ -4,37 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-grow: 1;
-`;
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
   margin-top: 2%;
-  border-radius: 15px 15px 0 0;
-  border: 2px solid ${({ theme: { colors } }) => colors.lingoBrown};
-  background-color: ${({ theme: { colors } }) => colors.lingoWhite};
-  box-shadow: 0px -2px 5px ${({ theme: { colors } }) => colors.lingoGreen},
-    2px 0px 5px ${({ theme: { colors } }) => colors.lingoGreen},
-    0px 2px 5px ${({ theme: { colors } }) => colors.lingoGreen},
-    -2px 0px ${({ theme: { colors } }) => colors.lingoGreen};
-
-  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.mobile}) {
-    width: 85%;
-    padding: 15px;
-  }
-
-  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.tablet}) {
-    padding: 3%;
-    width: 60%;
-  }
-
-  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.laptop}) {
-    width: 35%;
-  }
 `;
 
 export const Title = styled.h1`

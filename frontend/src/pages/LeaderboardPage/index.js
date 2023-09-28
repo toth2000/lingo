@@ -9,14 +9,21 @@ import {
   SubHeading,
   Text,
   Title,
-  Wrapper,
 } from "./style";
 import Choice from "../../components/Choice";
+import Card from "../../components/Card";
 
 const LeaderboardPage = () => {
   return (
     <Container>
-      <Wrapper>
+      <Card
+        padding={"3%"}
+        gap={"25px"}
+        gapSm={"10px"}
+        widthSm={"80%"}
+        widthM={"60%"}
+        widthL={"30%"}
+      >
         <Title>Leaderboard</Title>
         <Text>List of top 10 users with the highest score</Text>
         <Hr />
@@ -43,7 +50,7 @@ const LeaderboardPage = () => {
           <Choice />
           <Choice />
         </ListContainer>
-      </Wrapper>
+      </Card>
     </Container>
   );
 };

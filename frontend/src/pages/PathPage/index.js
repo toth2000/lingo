@@ -12,12 +12,12 @@ import {
   SubTitle,
   Text,
   Title,
-  Wrapper,
 } from "./style";
 import Choice from "../../components/Choice";
 
 import arrowDownIcon from "../../icons/arrow_down.png";
 import arrowUpIcon from "../../icons/arrow_up.png";
+import Card from "../../components/Card";
 
 const PathPage = () => {
   const [showInstruction, setShowInstruction] = useState(false);
@@ -28,7 +28,14 @@ const PathPage = () => {
 
   return (
     <Container>
-      <Wrapper>
+      <Card
+        padding={"3%"}
+        gap={"20px"}
+        gapSm={"15px"}
+        widthL={"35%"}
+        widthM={"60%"}
+        widthSm={"90%"}
+      >
         <InnerWrapper>
           <Title>Learning Path</Title>
           <Text>Choose a level from the list to start learning.</Text>
@@ -83,7 +90,7 @@ const PathPage = () => {
           <Choice />
           <Choice />
         </InnerWrapper>
-      </Wrapper>
+      </Card>
     </Container>
   );
 };
