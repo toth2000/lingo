@@ -3,12 +3,14 @@ import { createContext, useEffect, useState } from "react";
 import { validateObject } from "../utils/validateObject";
 
 export const AuthContext = createContext({
+  userId: "",
   accessToken: "",
   refreshToken: "",
 });
 
 export const useAuthContext = () => {
   const [authState, setAuthState] = useState({
+    userId: "",
     accessToken: "",
     refreshToken: "",
   });
@@ -20,7 +22,9 @@ export const useAuthContext = () => {
       if (data !== null) {
         const localData = JSON.parse(data);
 
-        if (validateObject(localData, ["accessToken", "refreshToken"])) {
+        if (
+          validateObject(localData, ["userId", "accessToken", "refreshToken"])
+        ) {
           setAuthState(localData);
         }
       }
@@ -29,8 +33,8 @@ export const useAuthContext = () => {
     }
   }, []);
 
-  const setAuthData = (accessToken, refreshToken) => {
-    const auth = { accessToken, refreshToken };
+  const setAuthData = (userId, accessToken, refreshToken) => {
+    const auth = { userId, accessToken, refreshToken };
     setAuthState(auth);
     localStorage.setItem("auth", JSON.stringify(auth));
   };
