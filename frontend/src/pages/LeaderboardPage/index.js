@@ -2,7 +2,6 @@ import React from "react";
 import {
   AlignWrapper,
   Container,
-  Hr,
   ListContainer,
   SubHeading,
   Text,
@@ -11,6 +10,7 @@ import {
 import Choice from "../../components/Choice";
 import Card from "../../components/Card";
 import Selection from "../../components/Selection";
+import Hr from "../../components/Hr";
 
 const LeaderboardPage = () => {
   return (

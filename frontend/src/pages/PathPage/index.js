@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   AlignWrapper,
   Container,
-  Hr,
   Icon,
   InnerWrapper,
   InstructionContainer,
@@ -11,12 +10,14 @@ import {
   Text,
   Title,
 } from "./style";
+
 import Choice from "../../components/Choice";
 
 import arrowDownIcon from "../../icons/arrow_down.png";
 import arrowUpIcon from "../../icons/arrow_up.png";
 import Card from "../../components/Card";
 import Selection from "../../components/Selection";
+import Hr from "../../components/Hr";
 
 const PathPage = () => {
   const [showInstruction, setShowInstruction] = useState(false);

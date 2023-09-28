@@ -30,14 +30,6 @@ export const SubHeading = styled.h3`
   color: ${({ theme: { colors } }) => colors.lingoGreen};
 `;
 
-export const Hr = styled.hr`
-  align: "center";
-  color: ${({ theme: { colors } }) => colors.lingoBrown};
-  size: 1px;
-  width: 100%;
-  margin: 0;
-`;
-
 export const ListContainer = styled.div`
   margin-top: 2%;
   display: flex;
