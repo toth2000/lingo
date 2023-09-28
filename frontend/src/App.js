@@ -12,31 +12,37 @@ import LandingPage from "./pages/LandingPage";
 import ProgressLoader from "./components/ProgressLoader";
 
 import { AuthContext, useAuthContext } from "./context/AuthContext";
+import { AppContext, useAppContext } from "./context/AppContext";
 
 function App() {
-  const { getAuthData } = useAuthContext();
-
+  const { authState, setAuthData, getAuthData, deleteAuthData } =
+    useAuthContext();
+  const { appState, setLoading, isLoading } = useAppContext();
   return (
     <Theme>
-      <AuthContext.Provider value={getAuthData()}>
-        <Container>
-          <UpperWrapper>
-            <Navbar />
-          </UpperWrapper>
-          <LowerWrapper>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/quiz" element={<QuizPage />} />
-                <Route path="/path" element={<PathPage />} />
-                <Route path="/board" element={<LeaderboardPage />} />
-                <Route path="/user/:id" element={<UserPage />} />
-              </Routes>
-            </BrowserRouter>
-          </LowerWrapper>
-        </Container>
-        <ProgressLoader />
-      </AuthContext.Provider>
+      <AppContext.Provider value={(appState, setLoading, isLoading)}>
+        <AuthContext.Provider
+          value={(authState, setAuthData, getAuthData, deleteAuthData)}
+        >
+          <Container>
+            <UpperWrapper>
+              <Navbar />
+            </UpperWrapper>
+            <LowerWrapper>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/quiz" element={<QuizPage />} />
+                  <Route path="/path" element={<PathPage />} />
+                  <Route path="/board" element={<LeaderboardPage />} />
+                  <Route path="/user/:id" element={<UserPage />} />
+                </Routes>
+              </BrowserRouter>
+            </LowerWrapper>
+          </Container>
+          <ProgressLoader loading={isLoading()} />
+        </AuthContext.Provider>
+      </AppContext.Provider>
     </Theme>
   );
 }

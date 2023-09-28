@@ -45,5 +45,5 @@ export const useAuthContext = () => {
     setAuthData({ accessToken: "", refreshToken: "" });
   };
 
-  return { setAuthData, getAuthData, deleteAuthData };
+  return { authState, setAuthData, getAuthData, deleteAuthData };
 };
