@@ -46,7 +46,7 @@ const QuizPage = () => {
 
   const ws = useWebSocket(
     `${QUIZ_SOCKET_URL}?level=${query.get("level")}&lang=${query.get(
-      "language"
+      "langauge"
     )}`,
     handleOnConnect,
     handleOnSocketMessage
