@@ -4,31 +4,40 @@ import Theme from "./Theme";
 import Navbar from "./components/Navbar";
 import QuizPage from "./pages/QuizPage/index.js";
 import { Container, LowerWrapper, UpperWrapper } from "./style";
+
 import PathPage from "./pages/PathPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
 import UserPage from "./pages/UserPage";
 import LandingPage from "./pages/LandingPage";
+import ProgressLoader from "./components/ProgressLoader";
+
+import { AuthContext, useAuthContext } from "./context/AuthContext";
 
 function App() {
+  const { getAuthData } = useAuthContext();
+
   return (
-    <BrowserRouter>
-      <Theme>
+    <Theme>
+      <AuthContext.Provider value={getAuthData()}>
         <Container>
           <UpperWrapper>
             <Navbar />
           </UpperWrapper>
           <LowerWrapper>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/quiz" element={<QuizPage />} />
-              <Route path="/path" element={<PathPage />} />
-              <Route path="/board" element={<LeaderboardPage />} />
-              <Route path="/user/:id" element={<UserPage />} />
-            </Routes>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/quiz" element={<QuizPage />} />
+                <Route path="/path" element={<PathPage />} />
+                <Route path="/board" element={<LeaderboardPage />} />
+                <Route path="/user/:id" element={<UserPage />} />
+              </Routes>
+            </BrowserRouter>
           </LowerWrapper>
         </Container>
-      </Theme>
-    </BrowserRouter>
+        <ProgressLoader />
+      </AuthContext.Provider>
+    </Theme>
   );
 }
 
