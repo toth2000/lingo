@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Loader, Text, Wrapper } from "./style";
+import { AppContext } from "../../context/AppContext";
 
 const ProgressLoader = () => {
+  const { appState } = useContext(AppContext);
+
   return (
     <>
-      {false ? (
+      {appState.loading ? (
         <Container>
           <Wrapper>
             <Loader></Loader>
