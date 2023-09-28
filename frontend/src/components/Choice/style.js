@@ -24,5 +24,6 @@ export const ChoiceText = styled.p`
 
 export const TextContainer = styled.div`
   display: flex;
-  gap: 5px;
+  align-items: center;
+  gap: 10px;
 `;

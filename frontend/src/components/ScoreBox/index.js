@@ -6,20 +6,26 @@ import {
   TextContainer,
 } from "./style";
 
-const ScoreBox = () => {
+const ScoreBox = ({ score, question, connected }) => {
   const [min, setMin] = useState("--");
   const [secs, setSecs] = useState("--");
 
   useEffect(() => {
+    if (connected === false) {
+      return;
+    }
+
     let timeLeft = 15 * 60;
 
-    setInterval(() => {
+    const timer = setInterval(() => {
       timeLeft = timeLeft - 1;
       const min = Math.floor(timeLeft / 60);
       const secs = timeLeft % 60;
 
       if (min === 0 && secs === 0) {
-        alert("Time over!!!");
+        clearInterval(timer);
+        setMin("00");
+        setSecs("00");
         return;
       }
 
@@ -35,7 +41,7 @@ const ScoreBox = () => {
         setSecs(secs);
       }
     }, 1000);
-  }, []);
+  }, [connected]);
 
   return (
     <Container>
@@ -45,11 +51,11 @@ const ScoreBox = () => {
       </TextContainer>
       <TextContainer>
         <FieldKeyText>Score</FieldKeyText>
-        <FieldValueText>5</FieldValueText>
+        <FieldValueText>{score}</FieldValueText>
       </TextContainer>
       <TextContainer>
         <FieldKeyText>Question</FieldKeyText>
-        <FieldValueText>5/10</FieldValueText>
+        <FieldValueText>{question}/10</FieldValueText>
       </TextContainer>
     </Container>
   );
