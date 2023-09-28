@@ -9,19 +9,29 @@ import Choice from "../Choice";
 import Button from "../Button";
 import Card from "../Card";
 
-const QuestionBox = () => {
+const QuestionBox = ({
+  data,
+  submitHandler,
+  selectedChoice,
+  handleChoiceOnClick,
+}) => {
   return (
     <Card padding={"2%"} widthSm={"90%"} widthM={"45%"} widthL={"30%"}>
       <QuestionTextContainer>
         <QuestionText>Q.</QuestionText>
-        <QuestionText>
-          {"The doctor gave me a ______ for some medicine yesterday."}
-        </QuestionText>
+        <QuestionText>{data?.ques}</QuestionText>
       </QuestionTextContainer>
       <ChoiceContainer>
-        <Choice />
-        <Choice />
-        <Choice />
+        {data?.opt.map((item, indx) => (
+          <Choice
+            index={indx}
+            showOrder={true}
+            active={indx === selectedChoice ? true : false}
+            onClick={handleChoiceOnClick}
+          >
+            <QuestionText>{item}</QuestionText>
+          </Choice>
+        ))}
       </ChoiceContainer>
       <ButtonContainer>
         <Button
@@ -29,6 +39,7 @@ const QuestionBox = () => {
           text={"Submit"}
           type={"outlined"}
           width={"40%"}
+          onClick={submitHandler}
         />
       </ButtonContainer>
     </Card>
