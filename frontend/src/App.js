@@ -37,7 +37,7 @@ function App() {
               </BrowserRouter>
             </LowerWrapper>
           </Container>
-          <ProgressLoader loading={isLoading()} />
+          <ProgressLoader />
         </AuthContext.Provider>
       </AppContext.Provider>
     </Theme>
