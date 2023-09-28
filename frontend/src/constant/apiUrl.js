@@ -8,3 +8,6 @@ export const REFRESH_TOKEN_ENDPOINT = "/auth/refresh";
 
 // LANGUAGE ROUTE
 export const GET_LANGUAGE_LIST_ENDPOINT = "/language/";
+
+// LEDERBOARD_ROUTE
+export const GET_LEADERBOARD_ENDPOINT = "/leaderboard/";
