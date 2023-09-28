@@ -40,12 +40,11 @@ API.interceptors.response.use(
             accessToken: data.accessToken,
             refreshToken: data.refreshToken,
           });
-
-          return API.request(err.config);
         } catch (error) {
           console.error("Error Refreshing Token\n", error, error.response);
         }
       }
     }
+    return Promise.reject(err);
   }
 );
