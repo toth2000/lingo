@@ -4,11 +4,7 @@ const {
 } = require("../keys/quiz");
 const { QUIZ_CONFIG } = require("../config/quiz");
 const Question = require("../models/Question");
-const {
-  getHeaderToken,
-  jwtCheckExpiry,
-  jwtVerifyAccessToken,
-} = require("../utils/auth");
+const { jwtCheckExpiry, jwtVerifyAccessToken } = require("../utils/auth");
 const { validateKeys } = require("../utils/mongoose");
 const {
   pickQuestion,
@@ -19,9 +15,7 @@ const {
 const { sessionExpired } = require("../utils/session");
 
 const connectionHandler = async (ws, req) => {
-  const accessToken = getHeaderToken(req);
-
-  if (!validateKeys(validationConnectKeys, req.query) || accessToken === null) {
+  if (!validateKeys(validationConnectKeys, req.query)) {
     ws.send(
       JSON.stringify({
         type: "error",
@@ -33,8 +27,9 @@ const connectionHandler = async (ws, req) => {
     return;
   }
 
+  const { level, lang, token } = req.query;
   // Checking Access Token Validity
-  const decodedToken = jwtVerifyAccessToken(accessToken);
+  const decodedToken = jwtVerifyAccessToken(token);
   const tokenExpired = jwtCheckExpiry(decodedToken);
   if (tokenExpired === true) {
     ws.send(
@@ -48,8 +43,6 @@ const connectionHandler = async (ws, req) => {
     ws.close();
     return;
   }
-
-  const { level, lang } = req.query;
 
   const easy = [];
   const medium = [];
@@ -132,7 +125,7 @@ const connectionHandler = async (ws, req) => {
       );
       ws.close();
     } catch {}
-  }, QUIZ_CONFIG.quiz_time * 1000);
+  }, QUIZ_CONFIG.quiz_time * 60000);
   req.timerId = timer;
 };
 
@@ -268,7 +261,7 @@ const messageHandler = async (ws, req, message) => {
     //   Send response
     ws.send(
       JSON.stringify({
-        type: "question",
+        type: "ques",
         id: currentQuestion.id,
         ques: currentQuestion.ques,
         opt: currentQuestion.opt,
