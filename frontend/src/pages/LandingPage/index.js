@@ -8,14 +8,18 @@ import {
   RightWrapper,
   SubTitle,
   Text,
+  TextButton,
   Title,
 } from "./style";
 
 import email_icon from "../../icons/email.png";
 import password_icon from "../../icons/password.png";
 import user_icon from "../../icons/user.png";
+import { useState } from "react";
 
 const LandingPage = () => {
+  const [showLogin, setShowLogin] = useState(true);
+
   return (
     <Container>
       <LeftWrapper>
@@ -85,8 +89,17 @@ const LandingPage = () => {
       </LeftWrapper>
 
       <RightWrapper>
-        <Title>Login</Title>
+        <Title>{showLogin ? "Login" : "Register"}</Title>
         <InnerWrapper width={"90%"}>
+          {!showLogin ? (
+            <InputField
+              icon={user_icon}
+              padding={"3%"}
+              placeholder={"Full Name"}
+              type={"text"}
+              handleInputChange={() => {}}
+            />
+          ) : null}
           <InputField
             icon={email_icon}
             padding={"3%"}
@@ -101,9 +114,17 @@ const LandingPage = () => {
             type={"password"}
             handleInputChange={() => {}}
           />
-          <Button padding={"4%"} text={"Submit"} type={"filled"} width={"100%"}>
-            Login
-          </Button>
+          <Button
+            padding={"4%"}
+            text={"Submit"}
+            type={"filled"}
+            width={"100%"}
+          />
+          <TextButton onClick={() => setShowLogin((prev) => !prev)}>
+            {showLogin
+              ? "Don't have an account? Click here"
+              : "Already have an account? Click Here"}
+          </TextButton>
         </InnerWrapper>
       </RightWrapper>
     </Container>

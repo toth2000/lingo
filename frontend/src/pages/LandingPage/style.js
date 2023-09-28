@@ -92,13 +92,24 @@ export const RightWrapper = styled.div`
 
   @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.mobile}) {
-    width: 80%;
+    width: 75%;
     height: 80dvh;
-  }
+}
 
-  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.tablet}) {
+@media only screen and (min-width: ${({ theme: { breakpoints } }) =>
+breakpoints.tablet}) {
     width: 25%;
-    height: fit-content;
+    height: 45dvh;
+  }
+`;
+
+export const TextButton = styled.a`
+  color: ${({ theme: { colors } }) => colors.lingoGreen};
+
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    color: ${({ theme: { colors } }) => colors.lingoBrown};
   }
 `;
