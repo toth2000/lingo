@@ -40,7 +40,8 @@ const connectionHandler = async (ws, req) => {
     ws.send(
       JSON.stringify({
         type: "error",
-        message: "Session Expired, Please login again to continue",
+        accessTokenExpired: true,
+        message: "An error occured, Please Try again",
         error: "Access Token Expired",
       })
     );

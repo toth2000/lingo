@@ -22,7 +22,7 @@ const verifyTokenMiddleware = (req, res, next) => {
     if (tokenExpired) {
       res
         .status(401)
-        .json({ message: "Session Expired", error: "Access Token Expired" });
+        .json({ message: "An error occured, please try again.", accessTokenExpired: true, error: "Access Token Expired" });
       return;
     }
     req.userId = decodedData.userId;

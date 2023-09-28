@@ -104,8 +104,9 @@ const refreshToken = async (req, res) => {
 
     if (jwtCheckExpiry(decodedData) === false) {
       return res.status(401).json({
-        message: "Token is valid",
-        error: "Refresh only expired tokens",
+        message: "Session Expired, Please login again.",
+        refreshTokenExpired: true,
+        error: "Refresh Token Expired",
       });
     }
 
