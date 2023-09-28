@@ -58,6 +58,7 @@ const connectionHandler = async (ws, req) => {
     });
     ws.send(messageData);
     ws.close();
+    return;
   }
 
   question.forEach((item) => {
