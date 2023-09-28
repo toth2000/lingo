@@ -46,7 +46,9 @@ export const useAuthContext = () => {
   };
 
   const isUserAuthenticated = () => {
-    const authenticated = validateObject(authState, [
+    const localData = getLocalStorageItem("auth");
+
+    const authenticated = validateObject(localData, [
       "userId",
       "accessToken",
       "refreshToken",
