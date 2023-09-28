@@ -10,7 +10,7 @@ export const useAppContext = () => {
   });
 
   const setLoading = (value) => {
-    setAppState(value);
+    setAppState({ ...appState, loading: value });
   };
 
   const isLoading = () => {
