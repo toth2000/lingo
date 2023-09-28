@@ -17,5 +17,5 @@ export const useAppContext = () => {
     return appState.loading;
   };
 
-  return { appState ,setLoading, isLoading };
+  return { appState, setLoading, isLoading };
 };

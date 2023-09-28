@@ -20,9 +20,9 @@ function App() {
   const { appState, setLoading, isLoading } = useAppContext();
   return (
     <Theme>
-      <AppContext.Provider value={(appState, setLoading, isLoading)}>
+      <AppContext.Provider value={{appState, setLoading, isLoading}}>
         <AuthContext.Provider
-          value={(authState, setAuthData, getAuthData, deleteAuthData)}
+          value={{authState, setAuthData, getAuthData, deleteAuthData}}
         >
           <Container>
             <UpperWrapper>
