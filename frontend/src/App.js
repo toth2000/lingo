@@ -15,15 +15,12 @@ import { AuthContext, useAuthContext } from "./context/AuthContext";
 import { AppContext, useAppContext } from "./context/AppContext";
 
 function App() {
-  const { authState, setAuthData, getAuthData, deleteAuthData } =
-    useAuthContext();
-  const { appState, setLoading, isLoading } = useAppContext();
+  const authData = useAuthContext();
+  const appData = useAppContext();
   return (
     <Theme>
-      <AppContext.Provider value={{appState, setLoading, isLoading}}>
-        <AuthContext.Provider
-          value={{authState, setAuthData, getAuthData, deleteAuthData}}
-        >
+      <AppContext.Provider value={appData}>
+        <AuthContext.Provider value={authData}>
           <Container>
             <UpperWrapper>
               <Navbar />

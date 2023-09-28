@@ -45,5 +45,19 @@ export const useAuthContext = () => {
     setAuthData({ accessToken: "", refreshToken: "" });
   };
 
-  return { authState, setAuthData, getAuthData, deleteAuthData };
+  const isUserAuthenticated = () => {
+    const authenticated = validateObject(authState, [
+      "userId",
+      "accessToken",
+      "refreshToken",
+    ]);
+
+    if (authenticated === false) {
+      deleteAuthData();
+    }
+
+    return false;
+  };
+
+  return { authState, setAuthData, getAuthData, deleteAuthData, isUserAuthenticated };
 };
