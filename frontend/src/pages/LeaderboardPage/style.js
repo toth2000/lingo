@@ -30,16 +30,6 @@ export const SubHeading = styled.h3`
   color: ${({ theme: { colors } }) => colors.lingoGreen};
 `;
 
-export const Select = styled.select`
-  padding: 1% 7%;
-  cursor: pointer;
-`;
-
-export const Option = styled.option`
-  cursor: pointer;
-  padding: 15px;
-`;
-
 export const Hr = styled.hr`
   align: "center";
   color: ${({ theme: { colors } }) => colors.lingoBrown};

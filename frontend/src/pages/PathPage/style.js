@@ -45,16 +45,6 @@ export const AlignWrapper = styled.div`
   gap: 10px;
 `;
 
-export const Select = styled.select`
-  padding: 1% 7%;
-  cursor: pointer;
-`;
-
-export const Option = styled.option`
-  cursor: pointer;
-  padding: 15px;
-`;
-
 export const Icon = styled.img`
   height: 28px;
   width: 28px;

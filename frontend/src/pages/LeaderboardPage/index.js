@@ -4,14 +4,13 @@ import {
   Container,
   Hr,
   ListContainer,
-  Option,
-  Select,
   SubHeading,
   Text,
   Title,
 } from "./style";
 import Choice from "../../components/Choice";
 import Card from "../../components/Card";
+import Selection from "../../components/Selection";
 
 const LeaderboardPage = () => {
   return (
@@ -29,11 +28,7 @@ const LeaderboardPage = () => {
         <Hr />
         <AlignWrapper>
           <SubHeading>Language: </SubHeading>
-          <Select>
-            <Option>Overall</Option>
-            <Option>English</Option>
-            <Option>Hindi</Option>
-          </Select>
+          <Selection padding={"1% 7%"} />
         </AlignWrapper>
         <Hr />
         <ListContainer>

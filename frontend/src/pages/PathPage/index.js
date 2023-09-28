@@ -6,8 +6,6 @@ import {
   Icon,
   InnerWrapper,
   InstructionContainer,
-  Option,
-  Select,
   SubHeading,
   SubTitle,
   Text,
@@ -18,6 +16,7 @@ import Choice from "../../components/Choice";
 import arrowDownIcon from "../../icons/arrow_down.png";
 import arrowUpIcon from "../../icons/arrow_up.png";
 import Card from "../../components/Card";
+import Selection from "../../components/Selection";
 
 const PathPage = () => {
   const [showInstruction, setShowInstruction] = useState(false);
@@ -43,10 +42,7 @@ const PathPage = () => {
         <Hr />
         <AlignWrapper>
           <SubTitle>Language: </SubTitle>
-          <Select>
-            <Option>English</Option>
-            <Option>Hindi</Option>
-          </Select>
+          <Selection padding={"1% 7%"} />
         </AlignWrapper>
         <Hr />
         <InnerWrapper>
