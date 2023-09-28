@@ -69,4 +69,17 @@ const addLevel = async (req, res) => {
   }
 };
 
-module.exports = { addLanguage, addLevel };
+const getLanguage = async (req, res) => {
+  try {
+    const data = await Language.find();
+    res.status(200).json(data);
+  } catch (error) {
+    console.error("Error in get Language controller: ", error);
+    res.status(500).json({
+      message: "An error occured, please try again later",
+      error: error,
+    });
+  }
+};
+
+module.exports = { addLanguage, addLevel, getLanguage };

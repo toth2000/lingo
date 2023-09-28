@@ -1,11 +1,9 @@
 const express = require("express");
-const { addLanguage, addLevel } = require("../controllers/language");
+const { addLanguage, addLevel, getLanguage } = require("../controllers/language");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Language Route");
-});
+router.get("/", getLanguage);
 
 // Create new language
 router.post("/", addLanguage);
