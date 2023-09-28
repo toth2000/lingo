@@ -1,6 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 
 import { validateObject } from "../utils/validateObject";
+import {
+  clearLocalStorage,
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from "../utils/localStorage";
 
 export const AuthContext = createContext({
   userId: "",
@@ -16,27 +21,17 @@ export const useAuthContext = () => {
   });
 
   useEffect(() => {
-    try {
-      validateObject();
-      const data = localStorage.getItem("auth");
-      if (data !== null) {
-        const localData = JSON.parse(data);
+    const localData = getLocalStorageItem("auth");
 
-        if (
-          validateObject(localData, ["userId", "accessToken", "refreshToken"])
-        ) {
-          setAuthState(localData);
-        }
-      }
-    } catch (error) {
-      console.error("Error: ", error);
+    if (validateObject(localData, ["userId", "accessToken", "refreshToken"])) {
+      setAuthState(localData);
     }
   }, []);
 
   const setAuthData = (userId, accessToken, refreshToken) => {
     const auth = { userId, accessToken, refreshToken };
     setAuthState(auth);
-    localStorage.setItem("auth", JSON.stringify(auth));
+    setLocalStorageItem("auth", auth);
   };
 
   const getAuthData = () => {
@@ -44,7 +39,7 @@ export const useAuthContext = () => {
   };
 
   const deleteAuthData = () => {
-    localStorage.clear();
+    clearLocalStorage();
     setAuthData({ accessToken: "", refreshToken: "" });
   };
 
