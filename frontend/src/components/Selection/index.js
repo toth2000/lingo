@@ -1,11 +1,14 @@
 import React from "react";
 import { Option, Select } from "./style";
 
-const Selection = ({ padding }) => {
+const Selection = ({ padding, onChange, optionList }) => {
   return (
-    <Select padding={padding}>
-      <Option>English</Option>
-      <Option>Hindi</Option>
+    <Select padding={padding} onChange={(event) => onChange(event)}>
+      {optionList.map((item) => (
+        <Option key={item.id} value={item.value}>
+          {item.label.toUpperCase()}
+        </Option>
+      ))}
     </Select>
   );
 };
