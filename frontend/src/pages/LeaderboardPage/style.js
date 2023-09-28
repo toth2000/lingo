@@ -21,6 +21,9 @@ export const Text = styled.p`
 export const AlignWrapper = styled.div`
   display: flex;
   align-items: center;
+  min-width: 80%;
+  margin: 0 10%;
+  justify-content: ${({ justify }) => (justify ? justify : "flex-start")};
   gap: 10px;
 `;
 
