@@ -23,6 +23,8 @@ export const useAuthContext = () => {
   useEffect(() => {
     const localData = getLocalStorageItem("auth");
 
+    if (localData === null) return;
+
     if (validateObject(localData, ["userId", "accessToken", "refreshToken"])) {
       setAuthState(localData);
     }
