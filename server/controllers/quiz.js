@@ -81,7 +81,7 @@ const connectionHandler = async (ws, req) => {
     }
   });
 
-  const currentQuestion = medium.pop();
+  const currentQuestion = { ...medium.pop(), diff: 1 };
 
   sessionData = {
     userId: decodedToken.userId,
@@ -107,6 +107,7 @@ const connectionHandler = async (ws, req) => {
     JSON.stringify({
       type: "ques",
       id: currentQuestion.id,
+      diff: currentQuestion.diff,
       ques: currentQuestion.ques,
       opt: currentQuestion.opt,
       score: sessionData.score,
@@ -265,6 +266,7 @@ const messageHandler = async (ws, req, message) => {
       JSON.stringify({
         type: "ques",
         id: currentQuestion.id,
+        diff: currentQuestion.diff,
         ques: currentQuestion.ques,
         opt: currentQuestion.opt,
         score: updatedScore,
