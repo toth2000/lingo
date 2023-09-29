@@ -16,6 +16,7 @@ Website: https://lingo-pi.vercel.app <br>
 - [Requirements](#requirements)
 - [Install](#install)
 - [Api Documentation](#api-documentation)
+- [Websocket Documentation](#websocket-documentation)
 - [Contribution Guidelines](#contribution-guidelines)
 
 # Features
