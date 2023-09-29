@@ -28,6 +28,8 @@ Stay motivated and challenged with our intriguing scoring system, earning points
 
 Compete with fellow language enthusiasts worldwide on our leaderboard, celebrating your achievements and global language skills.
 
+![](https://raw.githubusercontent.com/toth2000/lingo/master/screenshots/leader-board.png)
+
 ### Progress Tracking
 
 Monitor your language learning journey closely, set achievable goals, and witness your fluency levels rise steadily.
