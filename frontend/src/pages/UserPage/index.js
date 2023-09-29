@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   AlignWrapper,
   Container,
@@ -12,21 +12,92 @@ import {
 import Card from "../../components/Card";
 import Selection from "../../components/Selection";
 import Choice from "../../components/Choice";
+import { AppContext } from "../../context/AppContext";
+import { getUserById } from "../../api/user";
+import { useNavigate, useParams } from "react-router-dom";
+import { getStatisticById } from "../../api/statistic";
+import { showErrorAlert } from "../../utils/api";
+import { formatDate } from "../../utils/date";
+import { useLanguage } from "../../hooks/useLanguage";
+import { QUIZ_ROUTE } from "../../constant/routes";
 
 const UserPage = () => {
+  const { setLoading } = useContext(AppContext);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { option, selectedLanguage, handleOptionChange } = useLanguage();
+
+  const [userData, setUserData] = useState(null);
+  const [level, setLevel] = useState([]);
+
+  const fetchUserDetails = async () => {
+    try {
+      setLoading(true);
+      const userResponse = await getUserById(id);
+      const statsResponse = await getStatisticById(id);
+
+      if (!userResponse || !statsResponse) return;
+
+      const data = { ...statsResponse.data, ...userResponse.data };
+
+      setUserData({ ...data, createdAt: userResponse.data.createdAt });
+    } catch (error) {
+      console.error("Fetch Langague List error: ", error);
+      showErrorAlert(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Id: ", id);
+    fetchUserDetails();
+  }, [id]);
+
+  const handleLevelClick = (level) => {
+    navigate(
+      `${QUIZ_ROUTE}?level=${level + 1}&langauge=${selectedLanguage.code}`
+    );
+  };
+
+  useEffect(() => {
+    const lvls = [];
+    for (let i = 0; i < selectedLanguage?.lvls; i++) {
+      const lvlDetails = userData?.level[selectedLanguage?.code]?.[i];
+
+      lvls.push(
+        <Choice index={i} onClick={handleLevelClick}>
+          <AlignWrapper
+            minWidth={"80%"}
+            margin={"0 10%"}
+            justify="space-between"
+          >
+            <Text>{`Level ${i + 1}`}</Text>
+            <Text>
+              {lvlDetails?.complete === true
+                ? `Score: ${lvlDetails?.score}`
+                : "Yet to complete"}
+            </Text>
+          </AlignWrapper>
+        </Choice>
+      );
+    }
+    setLevel(lvls);
+  }, [selectedLanguage, userData]);
+
   return (
     <Container>
       <UserContainer widthL={"30%"} widthM={"50%"} widthSm={"90%"}>
-        <Title>Tothagata Bhattacharjee</Title>
-        <Text>Joined on: 14/08/2022</Text>
+        <Title>{userData?.name}</Title>
+        <Text>Joined on: {formatDate(userData?.createdAt)}</Text>
         <AlignWrapper>
           <Heading>Overall Score: </Heading>
-          <SubHeading>150</SubHeading>
+          <SubHeading>{userData?.points}</SubHeading>
         </AlignWrapper>
-        <AlignWrapper>
+        {/* <AlignWrapper>
           <Heading>Preferred Language: </Heading>
           <Selection padding={"1% 7%"} />
-        </AlignWrapper>
+        </AlignWrapper> */}
       </UserContainer>
       <Card
         padding={"3%"}
@@ -38,17 +109,17 @@ const UserPage = () => {
         flexGrow={1}
       >
         <Title>User Progress</Title>
+
         <AlignWrapper>
           <Heading>Language: </Heading>
-          <Selection padding={"1% 7%"} />
+          <Selection
+            padding={"1% 7%"}
+            onChange={handleOptionChange}
+            optionList={option}
+          />
         </AlignWrapper>
 
-        <LevelWrapper>
-          <Choice />
-          <Choice />
-          <Choice />
-          <Choice />
-        </LevelWrapper>
+        <LevelWrapper>{level.map((item) => item)}</LevelWrapper>
       </Card>
     </Container>
   );

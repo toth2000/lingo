@@ -39,6 +39,9 @@ export const UserContainer = styled.div`
 export const AlignWrapper = styled.div`
   display: flex;
   align-items: center;
+  min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
+  margin: ${({ margin }) => (margin ? margin : 0)};
+  justify-content: ${({ justify }) => (justify ? justify : "flex-start")};
   gap: 10px;
 `;
 
