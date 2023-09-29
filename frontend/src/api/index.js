@@ -40,6 +40,9 @@ API.interceptors.response.use(
             accessToken: data.accessToken,
             refreshToken: data.refreshToken,
           });
+
+          // Retry Request
+          return API.request(err.config);
         } catch (error) {
           console.error("Error Refreshing Token\n", error, error.response);
         }
