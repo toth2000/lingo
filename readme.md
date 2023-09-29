@@ -8,6 +8,16 @@ Website: https://lingo-pi.vercel.app <br>
 
 ---
 
+# Contents
+
+- [Features](#features)
+- [Folder Structure](#folder-structure)
+- [Technologies Used](#technologies-used)
+- [Requirements](#requirements)
+- [Install](#install)
+- [Api Documentation](#api-documentation)
+- [Contribution Guidelines](#contribution-guidelines)
+
 # Features
 
 Embark on a Multilingual Odyssey
