@@ -24,3 +24,13 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: end;
 `;
+
+export const DifficultyContainer = styled.div`
+  display: flex;
+  align-self: end;
+  width: fit-content;
+  padding: 10px 25px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  background-color: ${({ background }) => background};
+`;
