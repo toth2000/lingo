@@ -18,54 +18,21 @@ import arrowUpIcon from "../../icons/arrow_up.png";
 import Card from "../../components/Card";
 import Selection from "../../components/Selection";
 import Hr from "../../components/Hr";
-import { getLanguageList } from "../../api/language";
-import { showErrorAlert } from "../../utils/api";
-import { AppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { HOME_ROUTE, QUIZ_ROUTE } from "../../constant/routes";
 import { AuthContext } from "../../context/AuthContext";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const PathPage = () => {
   const [showInstruction, setShowInstruction] = useState(false);
 
-  const { setLoading } = useContext(AppContext);
   const { isUserAuthenticated } = useContext(AuthContext);
+  const { option, selectedLanguage, handleOptionChange } = useLanguage();
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
-  const [option, setOption] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [level, setLevel] = useState([]);
 
   const handleShowInstructionClick = () => {
     setShowInstruction((prev) => !prev);
-  };
-
-  const fetchLanguageList = async () => {
-    try {
-      setLoading(true);
-      const { data } = await getLanguageList();
-
-      if (!data) return;
-
-      setData(data);
-      const opt = data.map((item) => ({
-        id: item._id,
-        label: item.lang,
-        value: item.code,
-      }));
-      setOption(opt);
-      setSelectedLanguage(data[0]);
-    } catch (error) {
-      console.error("Fetch Langague List error: ", error);
-      showErrorAlert(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleOptionChange = (event) => {
-    const selected = data.find((item) => item.code === event.target.value);
-    setSelectedLanguage(selected);
   };
 
   const handleLevelClick = (level) => {
@@ -79,8 +46,6 @@ const PathPage = () => {
       navigate(HOME_ROUTE);
       return;
     }
-
-    fetchLanguageList();
   }, []);
 
   useEffect(() => {
