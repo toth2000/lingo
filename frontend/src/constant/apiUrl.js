@@ -1,4 +1,4 @@
-export const API_URL = "https://edf4-117-205-183-248.ngrok-free.app";
+export const API_URL = "https://lingo-6mpr.onrender.com/";
 // "http://localhost:4000";
 
 // AUTH ROUTE

@@ -20,6 +20,7 @@ import {
   QUIZ_ROUTE,
   USER_ROUTE,
 } from "./constant/routes";
+import { WEBSITE_URL } from "./constant/url";
 
 function App() {
   const authData = useAuthContext();
@@ -28,12 +29,14 @@ function App() {
     <Theme>
       <AppContext.Provider value={appData}>
         <AuthContext.Provider value={authData}>
-          <Container>
-            <UpperWrapper>
-              <Navbar />
-            </UpperWrapper>
-            <LowerWrapper>
-              <BrowserRouter>
+          <BrowserRouter
+          basename={WEBSITE_URL}
+          >
+            <Container>
+              <UpperWrapper>
+                <Navbar />
+              </UpperWrapper>
+              <LowerWrapper>
                 <Routes>
                   <Route path={HOME_ROUTE} element={<LandingPage />} />
                   <Route path={QUIZ_ROUTE} element={<QuizPage />} />
@@ -44,10 +47,10 @@ function App() {
                   />
                   <Route path={USER_ROUTE} element={<UserPage />} />
                 </Routes>
-              </BrowserRouter>
-            </LowerWrapper>
-          </Container>
-          <ProgressLoader />
+              </LowerWrapper>
+            </Container>
+            <ProgressLoader />
+          </BrowserRouter>
         </AuthContext.Provider>
       </AppContext.Provider>
     </Theme>
