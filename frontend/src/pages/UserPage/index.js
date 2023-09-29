@@ -12,6 +12,7 @@ import {
 import Card from "../../components/Card";
 import Selection from "../../components/Selection";
 import Choice from "../../components/Choice";
+import Button from "../../components/Button";
 import { AppContext } from "../../context/AppContext";
 import { getUserById } from "../../api/user";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,10 +20,13 @@ import { getStatisticById } from "../../api/statistic";
 import { showErrorAlert } from "../../utils/api";
 import { formatDate } from "../../utils/date";
 import { useLanguage } from "../../hooks/useLanguage";
-import { QUIZ_ROUTE } from "../../constant/routes";
+import { HOME_ROUTE, QUIZ_ROUTE } from "../../constant/routes";
+import { AuthContext } from "../../context/AuthContext";
 
 const UserPage = () => {
   const { setLoading } = useContext(AppContext);
+  const { authState, deleteAuthData, isUserAuthenticated } =
+    useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
   const { option, selectedLanguage, handleOptionChange } = useLanguage();
@@ -49,10 +53,20 @@ const UserPage = () => {
     }
   };
 
+  const handeLogout = () => {
+    deleteAuthData();
+    navigate(HOME_ROUTE);
+  };
+
   useEffect(() => {
-    console.log("Id: ", id);
     fetchUserDetails();
   }, [id]);
+
+  useEffect(() => {
+    if (isUserAuthenticated() !== true) {
+      navigate(HOME_ROUTE);
+    }
+  }, [authState]);
 
   const handleLevelClick = (level) => {
     navigate(
@@ -98,6 +112,15 @@ const UserPage = () => {
           <Heading>Preferred Language: </Heading>
           <Selection padding={"1% 7%"} />
         </AlignWrapper> */}
+        {authState?.userId === id ? (
+          <Button
+            onClick={handeLogout}
+            padding={"4%"}
+            text={"Logout"}
+            type={"filled"}
+            width={"30%"}
+          />
+        ) : null}
       </UserContainer>
       <Card
         padding={"3%"}
