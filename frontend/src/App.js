@@ -30,7 +30,7 @@ function App() {
       <AppContext.Provider value={appData}>
         <AuthContext.Provider value={authData}>
           <BrowserRouter
-          basename={WEBSITE_URL}
+          // basename={WEBSITE_URL}
           >
             <Container>
               <UpperWrapper>
