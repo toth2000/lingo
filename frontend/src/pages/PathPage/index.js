@@ -22,12 +22,14 @@ import { getLanguageList } from "../../api/language";
 import { showErrorAlert } from "../../utils/api";
 import { AppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
-import { QUIZ_ROUTE } from "../../constant/routes";
+import { HOME_ROUTE, QUIZ_ROUTE } from "../../constant/routes";
+import { AuthContext } from "../../context/AuthContext";
 
 const PathPage = () => {
   const [showInstruction, setShowInstruction] = useState(false);
 
   const { setLoading } = useContext(AppContext);
+  const { isUserAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [option, setOption] = useState([]);
@@ -73,6 +75,11 @@ const PathPage = () => {
   };
 
   useEffect(() => {
+    if (isUserAuthenticated() === false) {
+      navigate(HOME_ROUTE);
+      return;
+    }
+
     fetchLanguageList();
   }, []);
 
