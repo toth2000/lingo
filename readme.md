@@ -131,6 +131,10 @@ This documentation is a valuable resource for understanding the functionalities 
 
 Happy coding with Lingo! 🚀
 
+## Websocket documentation
+
+The WebSocket integration in Lingo enables real-time communication during quizzes, enhancing the interactive and dynamic nature of the language learning experience. To connect to the WebSocket server, please refer to the [websocket documentation](./server/README.md)
+
 ## Contribution guidelines
 
 Please refer to our [Contribution Guide](CONTRIBUTING.md) for contributing to this project. And remeber no contribution is small, every contribution matters.
