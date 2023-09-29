@@ -134,7 +134,7 @@ Happy coding with Lingo! 🚀
 
 ## Websocket documentation
 
-The WebSocket integration in Lingo enables real-time communication during quizzes, enhancing the interactive and dynamic nature of the language learning experience. To connect to the WebSocket server, please refer to the [websocket documentation](./server/README.md)
+The WebSocket integration in Lingo enables real-time communication during quizzes, enhancing the interactive and dynamic nature of the language learning experience. To connect to the WebSocket server, please refer to the [websocket documentation](./server/readme.md)
 
 ## Contribution guidelines
 
