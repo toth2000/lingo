@@ -77,22 +77,26 @@ const calculateBonusScore = (quizEndTime) => {
 
 const updateUserStatistics = async (userId, lvl, language, totalScore) => {
   try {
+    const levelToUpdate = lvl - 1;
     const stats = await Statistic.findById(userId);
-    const { level } = stats;
+    const { level, points } = stats;
     let finalScore = totalScore;
     let overallpointIncrement = totalScore;
 
-    if (level[language] && level[language][lvl]) {
-      const levelData = level[language][lvl];
-      const prevScore = levelData.score;
+    if (level[language] && level[language][levelToUpdate]) {
+      const levelData = level[language][levelToUpdate];
+      // Level is completed
+      if (levelData?.complete && levelData?.complete === true) {
+        const prevScore = levelData.score;
 
-      // Update score if current is better
-      if (totalScore < prevScore) {
-        finalScore = prevScore;
-        overallpointIncrement = 0;
-      } else {
-        // Overall point updated to the difference between current and previous
-        overallpointIncrement = Math.abs(totalScore - prevScore);
+        // Update score if current is better
+        if (totalScore < prevScore) {
+          finalScore = prevScore;
+          overallpointIncrement = 0;
+        } else {
+          // Overall point updated to the difference between current and previous
+          overallpointIncrement = Math.abs(totalScore - prevScore);
+        }
       }
     }
 
@@ -100,13 +104,13 @@ const updateUserStatistics = async (userId, lvl, language, totalScore) => {
       ...level,
       [language]: {
         ...level[language],
-        [lvl]: { score: finalScore, complete: true },
+        [levelToUpdate]: { score: finalScore, complete: true },
       },
     };
 
     await Statistic.findByIdAndUpdate(userId, {
       level: updatedLevel,
-      points: overallpointIncrement,
+      points: points + overallpointIncrement,
     });
   } catch (error) {
     console.error("Error updating User statistics: ", error);
