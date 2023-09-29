@@ -1,10 +1,10 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import QuestionBox from "../../components/QuestionBox";
 import { Container } from "./style";
 import ScoreBox from "../../components/ScoreBox";
 import { useWebSocket } from "../../hooks/useWebsocket";
 import { QUIZ_SOCKET_URL } from "../../constant/socketUrl";
-import {  useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { HOME_ROUTE, LEARNING_PATH_ROUTE } from "../../constant/routes";
 
 const QuizPage = () => {
@@ -21,12 +21,12 @@ const QuizPage = () => {
 
   const navigate = useNavigate();
 
-  const handleOnConnect = () => {
-    setConnected(true);
-  };
-
   const handleOnSocketMessage = (message) => {
-    if (message?.type === "ques") {
+    if (message?.type === "start") {
+      setConnected(true);
+    }
+
+    if (message?.type === "ques" || message?.type === "start") {
       setData(message);
       setQuestionCount((prev) => prev + 1);
     } else if (message?.type === "end") {
@@ -48,7 +48,6 @@ const QuizPage = () => {
     `${QUIZ_SOCKET_URL}?level=${query.get("level")}&lang=${query.get(
       "langauge"
     )}`,
-    handleOnConnect,
     handleOnSocketMessage
   );
 

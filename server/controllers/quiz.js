@@ -105,7 +105,7 @@ const connectionHandler = async (ws, req) => {
 
   ws.send(
     JSON.stringify({
-      type: "ques",
+      type: "start",
       id: currentQuestion.id,
       diff: currentQuestion.diff,
       ques: currentQuestion.ques,

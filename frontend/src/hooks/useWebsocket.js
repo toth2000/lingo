@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { HOME_ROUTE } from "../constant/routes";
 import { getLocalStorageItem } from "../utils/localStorage";
 
-export const useWebSocket = (socketUrl, onConnect, onMessage) => {
+export const useWebSocket = (socketUrl, onMessage) => {
   const wsClient = useRef(null);
   const navigate = useNavigate();
 
@@ -24,7 +24,6 @@ export const useWebSocket = (socketUrl, onConnect, onMessage) => {
       ws.onopen = () => {
         console.log("Socket Connected");
         wsClient.current = ws;
-        onConnect();
       };
 
       ws.onmessage = (event) => {
