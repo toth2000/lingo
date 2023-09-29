@@ -1,4 +1,4 @@
-export const API_URL = "https://lingo-6mpr.onrender.com/";
+export const API_URL = "https://lingo-6mpr.onrender.com";
 // "http://localhost:4000";
 
 // AUTH ROUTE
