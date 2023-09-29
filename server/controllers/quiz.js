@@ -125,6 +125,7 @@ const connectionHandler = async (ws, req) => {
         })
       );
       ws.close();
+      updateUserStatistics(session.userId, level, lang, session.score);
     } catch {}
   }, QUIZ_CONFIG.quiz_time * 60000);
   req.timerId = timer;
