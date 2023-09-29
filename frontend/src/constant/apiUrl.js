@@ -11,3 +11,9 @@ export const GET_LANGUAGE_LIST_ENDPOINT = "/language/";
 
 // LEDERBOARD_ROUTE
 export const GET_LEADERBOARD_ENDPOINT = "/leaderboard/";
+
+// USER ROUTE
+export const GET_USER_BY_ID_ENDPOINT = "/user"; // /user/:id
+
+// STATISTIC ROUTE
+export const GET_STATISTIC_BY_ID_ENDPOINT = "/statistic"; // /statistic/:id
