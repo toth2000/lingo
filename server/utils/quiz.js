@@ -57,7 +57,17 @@ const calculateScore = (currentScore, currentQuestion, response) => {
   let score = currentScore;
 
   if (currentQuestion.ans === response.ans) {
-    score = score + QUIZ_CONFIG.correct_marks;
+    switch (currentQuestion.diff) {
+      case 0:
+        score = score + QUIZ_CONFIG.correct_marks.easy;
+        break;
+      case 1:
+        score = score + QUIZ_CONFIG.correct_marks.medium;
+        break;
+      case 2:
+        score = score + QUIZ_CONFIG.correct_marks.hard;
+        break;
+    }
   } else {
     score = score - QUIZ_CONFIG.negative_marks;
   }
