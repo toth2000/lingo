@@ -88,7 +88,7 @@ const LandingPage = () => {
 
         <Hr />
 
-        <Title>Discover the essence of Lingo through:</Title>
+        <Title>Discover the essence of Lingo through</Title>
         <FeatureContainer>
           {features.map((item) => (
             <FeatureBox key={item.id}>
