@@ -17,12 +17,12 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const { authState, isUserAuthenticated } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext);
 
   const [userRoute, setUserRoute] = useState(HOME_ROUTE);
 
   useEffect(() => {
-    if (isUserAuthenticated()) {
+    if (authState?.userId) {
       const url = USER_ROUTE.split(":")[0];
       const userId = authState.userId;
       setUserRoute(`${url}${userId}`);
