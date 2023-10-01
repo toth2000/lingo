@@ -3,6 +3,8 @@ import Hr from "../../components/Hr";
 import InputField from "../../components/InputField";
 import {
   Container,
+  FeatureBox,
+  FeatureContainer,
   InnerWrapper,
   LeftWrapper,
   RightWrapper,
@@ -23,6 +25,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import { LEARNING_PATH_ROUTE } from "../../constant/routes";
+import { features } from "../../constant/text";
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(true);
@@ -85,53 +88,24 @@ const LandingPage = () => {
 
         <Hr />
 
-        <InnerWrapper>
-          <Title>Discover the essence of Lingo through:</Title>
-          <InnerWrapper gap={"5px"}>
-            <SubTitle>Dynamic Learning Experience</SubTitle>
-            <Text>
-              Lingo adapts to your language proficiency by adjusting question
-              difficulty based on your responses, ensuring personalized and
-              effective learning.
-            </Text>
-          </InnerWrapper>
-          <InnerWrapper gap={"5px"}>
-            <SubTitle>Engaging Scoring System</SubTitle>
-            <Text>
-              Stay motivated and challenged with our intriguing scoring system,
-              earning points and achieving milestones as you progress.
-            </Text>
-          </InnerWrapper>
-          <InnerWrapper gap={"5px"}>
-            <SubTitle>Global Leaderboard</SubTitle>
-            <Text>
-              Compete with fellow language enthusiasts worldwide on our
-              leaderboard, celebrating your achievements and global language
-              skills.
-            </Text>
-          </InnerWrapper>
-          <InnerWrapper gap={"5px"}>
-            <SubTitle>Progress Tracking</SubTitle>
-            <Text>
-              Monitor your language learning journey closely, set achievable
-              goals, and witness your fluency levels rise steadily.
-            </Text>
-          </InnerWrapper>
-          <InnerWrapper gap={"5px"}>
-            <SubTitle>Learn Multiple Languages</SubTitle>
-            <Text>
-              Lingo opens doors to a multitude of languages, allowing you to
-              explore and master them with ease.
-            </Text>
-          </InnerWrapper>
-        </InnerWrapper>
+        <Title>Discover the essence of Lingo through:</Title>
+        <FeatureContainer>
+          {features.map((item) => (
+            <FeatureBox key={item.id}>
+              <InnerWrapper>
+                <SubTitle>{item.title}</SubTitle>
+                <Text>{item.text}</Text>
+              </InnerWrapper>
+            </FeatureBox>
+          ))}
+        </FeatureContainer>
 
         <Hr />
 
         <InnerWrapper gap="5px">
           <Title>Join Lingo today</Title>
-          <SubTitle>And</SubTitle>
-          <Title>Embark on a captivating multilingual odyssey</Title>
+          <Title>And</Title>
+          <SubTitle>Embark on a captivating multilingual odyssey</SubTitle>
         </InnerWrapper>
       </LeftWrapper>
 

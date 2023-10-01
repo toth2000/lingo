@@ -55,15 +55,13 @@ export const AlignWrapper = styled.div`
 
 export const Title = styled.h1`
   margin: 0;
-  color: ${({ theme: { colors } }) => colors.lingoOrange};
-  text-align: justify;
+  color: ${({ theme: { colors } }) => colors.lingoBrown};
   align-self: start;
 `;
 
 export const SubTitle = styled.h2`
   margin: 0;
-  color: ${({ theme: { colors } }) => colors.lingoGreen};
-  text-align: justify;
+  color: ${({ theme: { colors } }) => colors.lingoOrange};
 `;
 
 export const Text = styled.p`
@@ -71,6 +69,30 @@ export const Text = styled.p`
   color: ${({ theme: { colors } }) => colors.lingoBrown};
   font-size: 1rem;
   text-align: justify;
+`;
+
+export const FeatureContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+`;
+
+export const FeatureBox = styled.div`
+  background-color: ${({ theme: { colors } }) => colors.lingoLightGreen};
+  border-radius: 15px;
+
+  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.mobile}) {
+    width: 80%;
+    padding: 50px 35px;
+  }
+
+  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.laptop}) {
+    padding: 8% 5%;
+    width: 38%;
+  }
 `;
 
 export const RightWrapper = styled.div`
@@ -94,10 +116,10 @@ export const RightWrapper = styled.div`
       breakpoints.mobile}) {
     width: 75%;
     height: 80dvh;
-}
+  }
 
-@media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-breakpoints.tablet}) {
+  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.tablet}) {
     width: 25%;
     height: 45dvh;
   }
