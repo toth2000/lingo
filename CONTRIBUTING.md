@@ -54,6 +54,6 @@ Before you start contributing, please take a moment to review the following guid
 
 ## Acknowledgment
 
-By contributing to convoAi, you agree that your contributions will be licensed under the [MIT License](LICENSE).
+By contributing to lingo, you agree that your contributions will be licensed under the [MIT License](LICENSE).
 
-Thank you for being a part of the convoAi community. Your contributions are greatly appreciated!
+Thank you for being a part of the lingo community. Your contributions are greatly appreciated!
