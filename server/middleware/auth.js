@@ -25,7 +25,7 @@ const verifyTokenMiddleware = (req, res, next) => {
         .json({ message: "An error occured, please try again.", accessTokenExpired: true, error: "Access Token Expired" });
       return;
     }
-    req.userId = decodedData.userId;
+    req.user = decodedData;
     next();
   } catch (error) {
     console.error("Auth middleware error: ", error);
