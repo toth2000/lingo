@@ -21,10 +21,14 @@ const createAdmin = async (req, res) => {
     return res.status(200).json(admin);
   } catch (error) {
     console.error("Error in create admin controller: ", error);
-    res.status(500).json({
-      message: "An error occured, please try again later",
-      error: error,
-    });
+    if (error?.code === 11000) {
+      res.status(409).json({ message: "User is already admin", error: error });
+    } else {
+      res.status(500).json({
+        message: "An error Occured, Please Try again Later.",
+        error: error,
+      });
+    }
   }
 };
 
@@ -106,4 +110,9 @@ const adminDeletePermission = async (req, res) => {
   }
 };
 
-module.exports = { createAdmin, adminWritePermission, adminEditPermission, adminDeletePermission };
+module.exports = {
+  createAdmin,
+  adminWritePermission,
+  adminEditPermission,
+  adminDeletePermission,
+};
