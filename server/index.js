@@ -14,6 +14,7 @@ const questionRoute = require("./routes/question");
 const languageRoute = require("./routes/language");
 const leaderboardRoute = require("./routes/leaderboard");
 const statisticRoute = require("./routes/statistic");
+const adminRoute = require("./routes/admin");
 const quizRoute = require("./routes/quiz");
 
 const app = express();
@@ -39,6 +40,7 @@ app.use("/question", questionRoute);
 app.use("/language", languageRoute);
 app.use("/leaderboard", leaderboardRoute);
 app.use("/statistic", statisticRoute);
+app.use("/admin", adminRoute);
 
 mongoose
   .connect(MONGOOSE_URL)
