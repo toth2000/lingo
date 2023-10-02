@@ -3,6 +3,8 @@ const {
   insertQuestion,
   insertManyQuestion,
 } = require("../controllers/question");
+const { verifyAdmin, verifyAdminWriteAccess } = require("../middleware/admin");
+const { verifyTokenMiddleware } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -11,8 +13,20 @@ router.get("/", (req, res) => {
 });
 
 // Add a single question
-router.post("/", insertQuestion);
+router.post(
+  "/",
+  verifyTokenMiddleware,
+  verifyAdmin,
+  verifyAdminWriteAccess,
+  insertQuestion
+);
 // Add many questions
-router.post("/many", insertManyQuestion);
+router.post(
+  "/many",
+  verifyTokenMiddleware,
+  verifyAdmin,
+  verifyAdminWriteAccess,
+  insertManyQuestion
+);
 
 module.exports = router;
