@@ -13,6 +13,7 @@ const {
   updateUserStatistics,
 } = require("../utils/quiz");
 const { sessionExpired } = require("../utils/session");
+const { shuffle } = require("../utils/array");
 
 const connectionHandler = async (ws, req) => {
   if (!validateKeys(validationConnectKeys, req.query)) {
@@ -48,9 +49,9 @@ const connectionHandler = async (ws, req) => {
   const medium = [];
   const hard = [];
 
-  const question = await Question.find({ lang: lang, lvl: level });
+  const questionList = await Question.find({ lang: lang, lvl: level });
 
-  if (question.length === 0) {
+  if (questionList.length === 0) {
     const messageData = JSON.stringify({
       type: "error",
       message: "Question Does not exists for the provided paramters",
@@ -60,6 +61,8 @@ const connectionHandler = async (ws, req) => {
     ws.close();
     return;
   }
+
+  const question = shuffle(questionList);
 
   question.forEach((item) => {
     const ques = {
